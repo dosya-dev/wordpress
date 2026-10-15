@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# usage: bin/test [unit|integration|all] [74|83] [extra phpunit args...]
+set -euo pipefail
+cd "$(dirname "$0")/.."
+suite="${1:-unit}"; php="php${2:-83}"; shift $(( $# > 2 ? 2 : $# ))
+compose=(docker compose -f docker/compose.yml)
+"${compose[@]}" run --rm "$php" sh -c 'test -f vendor/autoload.php || composer install --no-interaction --quiet'
+if [ "$suite" = "all" ]; then
+  "${compose[@]}" run --rm "$php" vendor/bin/phpunit "$@"
+else
+  "${compose[@]}" run --rm "$php" vendor/bin/phpunit --testsuite "$suite" "$@"
+fi

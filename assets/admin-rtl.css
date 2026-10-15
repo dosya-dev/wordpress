@@ -1,0 +1,2 @@
+/* RTL companion: admin.css uses logical properties only, so it is direction-agnostic. */
+@import url("admin.css");

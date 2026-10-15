@@ -1,0 +1,1459 @@
+# Copyright (C) 2026 dosya
+# This file is distributed under the GPL-2.0-or-later.
+msgid ""
+msgstr ""
+"Project-Id-Version: dosya Backup 0.3.1\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/dosya-backup-restore-migration\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-10-14T07:43:11+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: dosya-backup-restore-migration\n"
+
+#. Plugin Name of the plugin
+#: dosya-backup.php
+#: src/Wp/Admin/AdminPage.php:27
+#: src/Wp/Admin/AdminPage.php:208
+#: src/Wp/Admin/AdminPage.php:241
+#: src/Wp/Plugin.php:139
+msgid "dosya Backup"
+msgstr ""
+
+#. Plugin URI of the plugin
+#: dosya-backup.php
+msgid "https://dosya.dev/integration/wordpress/"
+msgstr ""
+
+#. Description of the plugin
+#: dosya-backup.php
+msgid "Back up, restore and migrate your site. Restore is free at any size."
+msgstr ""
+
+#. Author of the plugin
+#: dosya-backup.php
+#: src/Wp/Admin/AdminPage.php:234
+msgid "dosya"
+msgstr ""
+
+#. Author URI of the plugin
+#: dosya-backup.php
+msgid "https://dosya.dev/"
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:157
+msgid "Connecting was cancelled. Nothing was changed."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:158
+#: src/Wp/Connector.php:61
+#: src/Wp/Connector.php:137
+msgid "This connect link expired or was already used. Start again."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:159
+#: src/Wp/Connector.php:134
+msgid "The site's folder in dosya no longer exists. Connect the site again."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:160
+#: src/Wp/Connector.php:64
+msgid "This connect link does not match the request this site started. Start again."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:161
+msgid "Your dosya plan does not allow another connected site."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:162
+msgid "dosya could not connect this site. Please try again."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:209
+msgid "dosya Backup could not start on this site, so backups and restores are paused:"
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:231
+msgid "Backups"
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:232
+msgid "Restore & migrate"
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:233
+msgid "Schedule"
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:257
+msgid "Restore this backup?"
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:272
+#: src/Wp/Admin/I18nCatalog.php:292
+msgid "No backups on this server yet. The first one appears here as soon as it starts."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:298
+#: src/Wp/Admin/I18nCatalog.php:307
+msgid "the site shows a maintenance page until this finishes"
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:310
+#: src/Wp/Admin/I18nCatalog.php:303
+msgid "Download manifest"
+msgstr ""
+
+#. translators: %s: volume file name, e.g. v0001.dosya.
+#: src/Wp/Admin/AdminPage.php:314
+#: src/Wp/Admin/I18nCatalog.php:305
+#, php-format
+msgid "Download %s"
+msgstr ""
+
+#. translators: 1: current page, 2: number of pages.
+#: src/Wp/Admin/AdminPage.php:328
+#: src/Wp/Admin/I18nCatalog.php:313
+#, php-format
+msgid "Page %1$d of %2$d"
+msgstr ""
+
+#. translators: 1: days backups stay in dosya, 2: hours each upload is protected from deletion.
+#: src/Wp/Admin/AdminPage.php:349
+#, php-format
+msgid "%1$d days on your plan, protected from deletion for %2$d hours after upload. Change the plan on dosya.dev."
+msgstr ""
+
+#. translators: %d: days backups stay in dosya.
+#: src/Wp/Admin/AdminPage.php:353
+#, php-format
+msgid "%d days on your plan. Change the plan on dosya.dev."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:355
+msgid "Set by your plan. Change the plan on dosya.dev."
+msgstr ""
+
+#: src/Wp/Admin/AdminPage.php:396
+msgid "Free plan: 1 site, 5 GB, 7 days"
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:27
+msgid "Use a POST request."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:31
+msgid "Session expired"
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:34
+#: src/Wp/Admin/Connect.php:33
+#: src/Wp/Admin/Connect.php:48
+#: src/Wp/Admin/Download.php:24
+msgid "You are not allowed to do this."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:73
+msgid "A backup or restore is running."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:83
+msgid "No backup with that id."
+msgstr ""
+
+#. translators: %d: number of newer backups that build on this one.
+#: src/Wp/Admin/Ajax.php:88
+#, php-format
+msgid "%d newer backup builds on this one. Delete that backup first."
+msgid_plural "%d newer backups build on this one. Delete those backups first."
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Wp/Admin/Ajax.php:95
+msgid "Unknown notice."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:108
+msgid "That safety copy no longer exists."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:139
+msgid "Please confirm that this replaces the current site."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:142
+msgid "Type the current site's domain to confirm."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:151
+msgid "No data received."
+msgstr ""
+
+#: src/Wp/Admin/Ajax.php:196
+msgid "No backup with that id. Reload the page to see the current list."
+msgstr ""
+
+#: src/Wp/Admin/Connect.php:38
+msgid "Could not start connecting to dosya."
+msgstr ""
+
+#: src/Wp/Admin/Download.php:44
+msgid "That backup file does not exist."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:36
+msgid "Safety copy"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:37
+msgid "Uploaded"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:38
+msgid "Manual"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:39
+msgid "Scheduled"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:40
+msgid "Database"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:41
+msgid "Files"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:42
+msgid "Database + files"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:43
+msgid "made before a restore"
+msgstr ""
+
+#. translators: %s: size of the data this incremental backup added, e.g. "38 MB".
+#: src/Wp/Admin/I18nCatalog.php:45
+#, php-format
+msgid "incremental, %s new"
+msgstr ""
+
+#. translators: %s: the reason the backup failed.
+#: src/Wp/Admin/I18nCatalog.php:47
+#, php-format
+msgid "Failed · %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:48
+msgid "dosya · verified"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:49
+msgid "dosya confirmed every volume of this backup."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:50
+msgid "dosya · uploading"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:51
+msgid "dosya · not verified"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:52
+msgid "dosya · upload failed"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:53
+msgid "Uploaded; dosya has not confirmed the volumes yet."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:54
+msgid "local"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:55
+msgid "Stored on this server only."
+msgstr ""
+
+#. translators: %s: when the lock ends, e.g. "tomorrow 09:00" or "14 Oct 09:00".
+#: src/Wp/Admin/I18nCatalog.php:57
+#, php-format
+msgid "🔒 until %s"
+msgstr ""
+
+#. translators: %s: when the lock ends, e.g. "tomorrow 09:00" or "14 Oct 09:00".
+#: src/Wp/Admin/I18nCatalog.php:59
+#, php-format
+msgid "Protected in dosya until %s; this site's key cannot delete or change it."
+msgstr ""
+
+#. translators: %d: number of newer backups that depend on this one (here exactly 1).
+#: src/Wp/Admin/I18nCatalog.php:61
+#, php-format
+msgid "This backup is the base of %d newer backup. Delete it first."
+msgstr ""
+
+#. translators: %d: number of newer backups that depend on this one.
+#: src/Wp/Admin/I18nCatalog.php:63
+#, php-format
+msgid "This backup is the base of %d newer backups. Delete those first."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:64
+#: src/Wp/Admin/Notices.php:110
+msgid "Connect again"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:65
+msgid "Connection to dosya lost"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:66
+msgid "Your site's security keys changed, so the saved connection cannot be read. Backups already in dosya are safe. Connect again to resume uploads."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:67
+msgid "This site was disconnected from dosya.dev"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:68
+msgid "Connect again to resume uploads."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:69
+msgid "Store copies in dosya"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:70
+msgid "Keep a second copy of every backup off this server. If this server is ever lost, you can restore from dosya."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:71
+msgid "You will approve this site on dosya.dev. dosya receives the site address, its name, and the backups you make. Nothing else."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:72
+msgid "Connect to dosya"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:73
+msgid "Disconnect this site from dosya? Backups already stored in dosya are kept."
+msgstr ""
+
+#. translators: %d: number of backups that still fit.
+#: src/Wp/Admin/I18nCatalog.php:75
+#, php-format
+msgid "about %d more backups at the current size"
+msgstr ""
+
+#. translators: 1: storage used, 2: storage total, both sizes such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:77
+#, php-format
+msgid "%1$s of %2$s used"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:78
+msgid "Open in dosya ↗"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:79
+msgid "Storage in dosya is almost full"
+msgstr ""
+
+#. translators: 1: storage used, 2: storage total, both sizes such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:81
+#, php-format
+msgid "%1$s of %2$s. When it is full, the next upload is skipped and the backup stays on this server only."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:82
+msgid "Free the space first: exclude the uploads folder under Schedule, or shorten retention on dosya.dev. If you need more, plans start at 50 GB on dosya.dev."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:83
+msgid "Review excludes"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:84
+msgid "Connected to dosya"
+msgstr ""
+
+#. translators: 1: dosya account name, 2: dosya workspace name.
+#: src/Wp/Admin/I18nCatalog.php:86
+#, php-format
+msgid "as %1$s · workspace %2$s"
+msgstr ""
+
+#. translators: %s: dosya account name.
+#: src/Wp/Admin/I18nCatalog.php:88
+#, php-format
+msgid "as %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:89
+msgid "Disconnect"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:90
+msgid "Folder"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:91
+msgid "Last upload"
+msgstr ""
+
+#. translators: %s: when the last upload happened, e.g. "today 09:00".
+#: src/Wp/Admin/I18nCatalog.php:93
+#, php-format
+msgid "%s, verified"
+msgstr ""
+
+#. translators: %s: when the last upload happened, e.g. "today 09:00".
+#: src/Wp/Admin/I18nCatalog.php:95
+#, php-format
+msgid "%s, not yet verified"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:96
+msgid "Retention"
+msgstr ""
+
+#. translators: %d: number of days.
+#: src/Wp/Admin/I18nCatalog.php:98
+#, php-format
+msgid "%d days"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:99
+msgid "Protection"
+msgstr ""
+
+#. translators: %d: number of hours.
+#: src/Wp/Admin/I18nCatalog.php:101
+#, php-format
+msgid "%d h after each upload"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:102
+msgid "just now"
+msgstr ""
+
+#. translators: %d: number of minutes.
+#: src/Wp/Admin/I18nCatalog.php:104
+#, php-format
+msgid "%d minute ago"
+msgstr ""
+
+#. translators: %d: number of minutes.
+#: src/Wp/Admin/I18nCatalog.php:106
+#, php-format
+msgid "%d minutes ago"
+msgstr ""
+
+#. translators: %d: number of hours.
+#: src/Wp/Admin/I18nCatalog.php:108
+#, php-format
+msgid "%d hour ago"
+msgstr ""
+
+#. translators: %d: number of hours.
+#: src/Wp/Admin/I18nCatalog.php:110
+#, php-format
+msgid "%d hours ago"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:111
+msgid "yesterday"
+msgstr ""
+
+#. translators: %d: number of days.
+#: src/Wp/Admin/I18nCatalog.php:113
+#, php-format
+msgid "%d days ago"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:114
+msgid "Today"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:115
+msgid "today"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:116
+msgid "Yesterday"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:117
+msgid "Tomorrow"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:118
+msgid "tomorrow"
+msgstr ""
+
+#. translators: date format: day and short month, see https://www.php.net/manual/datetime.format.php
+#: src/Wp/Admin/I18nCatalog.php:120
+msgid "j M"
+msgstr ""
+
+#. translators: joins two parts with a space. Either 1: a day such as "Today" or "14 Oct", 2: a time such as "09:00"; or 1: a result sentence, 2: the warning sentence that follows it.
+#: src/Wp/Admin/I18nCatalog.php:122
+#, php-format
+msgid "%1$s %2$s"
+msgstr ""
+
+#. translators: %s: the reason the backup failed.
+#: src/Wp/Admin/I18nCatalog.php:124
+#, php-format
+msgid "The latest backup of this site failed: %s"
+msgstr ""
+
+#. translators: 1: site name, 2: the reason the backup failed.
+#: src/Wp/Admin/I18nCatalog.php:126
+#, php-format
+msgid "[%1$s] Backup failed: %2$s"
+msgstr ""
+
+#. translators: %s: the reason the backup was skipped.
+#: src/Wp/Admin/I18nCatalog.php:128
+#, php-format
+msgid "The latest backup of this site was skipped: %s"
+msgstr ""
+
+#. translators: 1: site name, 2: the reason the backup was skipped.
+#: src/Wp/Admin/I18nCatalog.php:130
+#, php-format
+msgid "[%1$s] Backup skipped: %2$s"
+msgstr ""
+
+#. translators: %s: backup size such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:132
+#, php-format
+msgid "The latest backup of this site is complete: %s, stored in dosya."
+msgstr ""
+
+#. translators: %s: backup size such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:134
+#, php-format
+msgid "The latest backup of this site is complete: %s, on this server."
+msgstr ""
+
+#. translators: %s: date and time until which the stored copy cannot be deleted.
+#: src/Wp/Admin/I18nCatalog.php:136
+#, php-format
+msgid "It is protected from deletion until %s."
+msgstr ""
+
+#. translators: %s: site name.
+#: src/Wp/Admin/I18nCatalog.php:138
+#, php-format
+msgid "[%s] Backup complete"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:139
+msgid "No earlier backup exists yet."
+msgstr ""
+
+#. translators: 1: when the last good backup was made, 2: where it is stored.
+#: src/Wp/Admin/I18nCatalog.php:141
+#, php-format
+msgid "Your last good backup is from %1$s and is %2$s."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:142
+msgid "Free up disk space or exclude folders under Schedule, then retry."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:143
+msgid "Connect to dosya again, then retry."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:144
+msgid "Open dosya Backup to see the log and retry."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:145
+#: src/Wp/Admin/Notices.php:72
+msgid "unknown error"
+msgstr ""
+
+#. translators: %s: domain of the site the backup was made on.
+#: src/Wp/Admin/I18nCatalog.php:147
+#, php-format
+msgid "Move %s onto this site?"
+msgstr ""
+
+#. translators: 1: domain of this site, 2: domain of the site the backup was made on. %1$s must appear exactly once and first: the renderer splits the sentence on it.
+#: src/Wp/Admin/I18nCatalog.php:149
+#, php-format
+msgid "This replaces everything on %1$s with %2$s's database and files. Links and media paths are rewritten to the new address."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:150
+msgid "Replace this site"
+msgstr ""
+
+#. translators: %s: date and time of the backup.
+#: src/Wp/Admin/I18nCatalog.php:152
+#, php-format
+msgid "Restore the backup from %s?"
+msgstr ""
+
+#. translators: %1$s: domain of this site. It must appear exactly once and first: the renderer splits the sentence on it.
+#: src/Wp/Admin/I18nCatalog.php:154
+#, php-format
+msgid "This replaces the current %1$s with the site as it was then:"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:155
+msgid "Restore site"
+msgstr ""
+
+#. translators: 1: address the backup was made on, 2: this site's address.
+#: src/Wp/Admin/I18nCatalog.php:157
+#, php-format
+msgid "Links are updated from %1$s to %2$s."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:158
+msgid "Database: posts, pages, settings, users, orders"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:159
+msgid "Files: themes, plugins, uploads"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:160
+msgid "Incremental backup"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:161
+msgid "Database backup"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:162
+msgid "Files backup"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:163
+msgid "Full backup"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:164
+msgid "Stored in dosya, verified restorable"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:165
+msgid "Stored in dosya, not yet verified"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:166
+msgid "Uploaded from another site"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:167
+msgid "On this server"
+msgstr ""
+
+#. translators: joins the facts line. 1: the facts so far, 2: the next fact, e.g. "Full backup" and "1.2 GB".
+#: src/Wp/Admin/I18nCatalog.php:169
+#, php-format
+msgid "%1$s · %2$s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:170
+msgid "Site address after restore"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:171
+msgid "Type the current site's domain to confirm"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:172
+msgid "A safety copy of the current site is made first. If anything looks wrong afterwards, open the Backups list and restore that safety copy."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:173
+msgid "Keep current site"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:174
+msgid "Unknown error"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:175
+msgid "Restore safety copy"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:176
+#: src/Wp/Admin/templates/partials/running-card.php:18
+msgid "Show log"
+msgstr ""
+
+#. translators: %s: the reason the restore failed.
+#: src/Wp/Admin/I18nCatalog.php:178
+#, php-format
+msgid "Restore failed: %s"
+msgstr ""
+
+#. translators: %s: the reason the backup failed.
+#: src/Wp/Admin/I18nCatalog.php:180
+#, php-format
+msgid "Backup failed: %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:181
+msgid "Retry now"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:182
+msgid "Backup skipped."
+msgstr ""
+
+#. translators: %s: the reason the backup was skipped.
+#: src/Wp/Admin/I18nCatalog.php:184
+#, php-format
+msgid "Backup skipped: %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:185
+msgid "Cancelled."
+msgstr ""
+
+#. translators: %s: backup size such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:187
+#, php-format
+msgid "Backup complete, %s, stored in dosya, not yet verified."
+msgstr ""
+
+#. translators: %s: backup size such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:189
+#, php-format
+msgid "Backup complete, %s, on this server."
+msgstr ""
+
+#. translators: 1: number of warnings, 2: the first warning.
+#: src/Wp/Admin/I18nCatalog.php:191
+#, php-format
+msgid "With %1$d warning: %2$s"
+msgstr ""
+
+#. translators: 1: number of warnings, 2: the first warning.
+#: src/Wp/Admin/I18nCatalog.php:193
+#, php-format
+msgid "With %1$d warnings: %2$s"
+msgstr ""
+
+#. translators: %s: date and time of the restored backup.
+#: src/Wp/Admin/I18nCatalog.php:195
+#, php-format
+msgid "Site restored to %s. Links checked, cache cleared, maintenance page removed."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:196
+msgid "Undo this restore"
+msgstr ""
+
+#. translators: 1: tables done, 2: total tables.
+#: src/Wp/Admin/I18nCatalog.php:198
+#, php-format
+msgid "%1$d of %2$d tables"
+msgstr ""
+
+#. translators: 1: number of files, 2: size such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:200
+#, php-format
+msgid "%1$d file, %2$s"
+msgstr ""
+
+#. translators: 1: number of files, 2: size such as 1.2 GB.
+#: src/Wp/Admin/I18nCatalog.php:202
+#, php-format
+msgid "%1$d files, %2$s"
+msgstr ""
+
+#. translators: 1: size done, 2: total size.
+#: src/Wp/Admin/I18nCatalog.php:204
+#, php-format
+msgid "%1$s of %2$s"
+msgstr ""
+
+#. translators: 1: items done, 2: total items.
+#: src/Wp/Admin/I18nCatalog.php:206
+#, php-format
+msgid "%1$d of %2$d"
+msgstr ""
+
+#. translators: %s: date and time of the backup being restored.
+#: src/Wp/Admin/I18nCatalog.php:208
+#, php-format
+msgid "Restoring the backup from %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:209
+msgid "Restoring the backup"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:210
+msgid "Uploading to dosya"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:211
+msgid "Backing up this site"
+msgstr ""
+
+#. translators: 1: day such as "tomorrow", 2: time of day.
+#: src/Wp/Admin/I18nCatalog.php:213
+#, php-format
+msgid "Next backup %1$s at %2$s."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:214
+msgid "Fix the cause, then retry."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:215
+msgid "Automatic backups are off."
+msgstr ""
+
+#. translators: %s: the reason the backup failed.
+#: src/Wp/Admin/I18nCatalog.php:217
+#, php-format
+msgid "Last backup failed: %s"
+msgstr ""
+
+#. translators: %s: the reason the restore failed.
+#: src/Wp/Admin/I18nCatalog.php:219
+#, php-format
+msgid "Last restore failed: %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:220
+msgid "The safety copy made before the restore puts the site back as it was."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:221
+msgid "Open the log to see what stopped it."
+msgstr ""
+
+#. translators: %s: why the upload to dosya failed.
+#: src/Wp/Admin/I18nCatalog.php:223
+#, php-format
+msgid "upload to dosya failed: %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:225
+msgid "The backup did not finish."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:226
+msgid "The upload to dosya did not finish."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:227
+#: src/Wp/Admin/templates/partials/backup-row.php:51
+msgid "View log"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:228
+msgid "Your first backup is saved on this server."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:229
+msgid "Automatic backups are off; turn them on under Schedule."
+msgstr ""
+
+#. translators: 1: Daily or Weekly, 2: time of day, 3: number of backups kept.
+#: src/Wp/Admin/I18nCatalog.php:231
+#, php-format
+msgid "%1$s backups are already on (%2$s, keeps %3$d)."
+msgstr ""
+
+#. translators: %1$s: Daily, Weekly or Automatic.
+#: src/Wp/Admin/I18nCatalog.php:233
+#, php-format
+msgid "%1$s backups are already on."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:234
+msgid "Connect to dosya to store copies off-site, protected from deletion."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:235
+msgid "No backup yet"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:236
+msgid "Back up now"
+msgstr ""
+
+#. translators: %s: how long ago the backup was made, e.g. "2 hours ago".
+#: src/Wp/Admin/I18nCatalog.php:238
+#, php-format
+msgid "Verified restorable, %s"
+msgstr ""
+
+#. translators: %s: how long ago the backup was made, e.g. "2 hours ago".
+#: src/Wp/Admin/I18nCatalog.php:240
+#, php-format
+msgid "Uploaded to dosya, not yet verified, %s"
+msgstr ""
+
+#. translators: %s: how long ago the backup was made, e.g. "2 hours ago".
+#: src/Wp/Admin/I18nCatalog.php:242
+#, php-format
+msgid "Uploading to dosya, %s"
+msgstr ""
+
+#. translators: %s: how long ago the backup was made, e.g. "2 hours ago".
+#: src/Wp/Admin/I18nCatalog.php:244
+#, php-format
+msgid "Backed up on this server, %s"
+msgstr ""
+
+#. translators: %s: when the lock ends, e.g. "tomorrow 09:00".
+#: src/Wp/Admin/I18nCatalog.php:246
+#, php-format
+msgid "stored in dosya, protected until %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:247
+msgid "stored in dosya"
+msgstr ""
+
+#. translators: 1: day such as "tomorrow", 2: time of day.
+#: src/Wp/Admin/I18nCatalog.php:249
+#, php-format
+msgid "next backup %1$s at %2$s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:250
+msgid "automatic backups are off"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:251
+msgid "Backup overdue"
+msgstr ""
+
+#. translators: %s: how long ago the last backup was made.
+#: src/Wp/Admin/I18nCatalog.php:253
+#, php-format
+msgid "last backup %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:254
+msgid "Changes since then are not protected."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:255
+msgid "Check schedule"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:256
+msgid "dosya connection lost, uploads paused"
+msgstr ""
+
+#. translators: 1: storage used in GB, 2: storage total in GB.
+#: src/Wp/Admin/I18nCatalog.php:258
+#, php-format
+msgid "%1$s of %2$s GB used"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:259
+msgid "dosya storage almost full"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:260
+msgid "Review storage"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:261
+#: src/Wp/Admin/templates/schedule.php:17
+msgid "Daily"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:262
+#: src/Wp/Admin/templates/schedule.php:18
+msgid "Weekly"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:263
+msgid "Automatic"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:264
+msgid "verified in dosya"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:265
+msgid "in dosya, not yet verified"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:266
+msgid "in dosya, upload in progress"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:267
+msgid "on this server only"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:268
+msgid "Preparing"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:269
+msgid "Working"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:270
+msgid "Finishing"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:271
+msgid "Registering with dosya"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:272
+msgid "Scanning"
+msgstr ""
+
+#. translators: 1: current volume number, 2: number of volumes.
+#: src/Wp/Admin/I18nCatalog.php:274
+#, php-format
+msgid "Uploading to dosya, volume %1$d of %2$d"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:275
+msgid "Uploading manifests"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:276
+msgid "Finishing the upload to dosya"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:277
+msgid "Making a safety copy"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:278
+msgid "Reading the backup"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:279
+msgid "Updating links and paths"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:280
+msgid "Switching to the restored database"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:281
+msgid "Checking the site"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:282
+msgid "Cleaning up"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:283
+msgid "Delete this backup from this server? Copies in dosya are kept."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:284
+msgid "This is an incremental backup. It depends on earlier backups and can only be imported where those exist. To migrate a site, download a full backup."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:285
+msgid "Your session expired. Reload the page to continue."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:286
+msgid "Your login was refreshed by the restore. Reloading..."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:287
+msgid "Saved"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:288
+msgid "changes apply from the next run"
+msgstr ""
+
+#. translators: 1: size uploaded, 2: total size, 3: current chunk, 4: number of chunks.
+#: src/Wp/Admin/I18nCatalog.php:290
+#, php-format
+msgid "%1$s of %2$s · chunk %3$d of %4$d · if the upload stops, choose the same files again to resume"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:291
+msgid "Backup received. Choose how to restore it."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:293
+#: src/Wp/Admin/templates/partials/backup-row.php:45
+msgid "More actions"
+msgstr ""
+
+#. translators: %s: the reason it failed.
+#: src/Wp/Admin/I18nCatalog.php:295
+#, php-format
+msgid "Failed: %s"
+msgstr ""
+
+#. translators: %s: the reason it was skipped.
+#: src/Wp/Admin/I18nCatalog.php:297
+#, php-format
+msgid "Skipped: %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:298
+msgid "Done."
+msgstr ""
+
+#. translators: 1: number of warnings, 2: the first warning.
+#: src/Wp/Admin/I18nCatalog.php:300
+#, php-format
+msgid "Done, with %1$d warning(s): %2$s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:301
+msgid "The request failed. Try again."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:302
+#: src/Wp/Admin/templates/partials/backup-row.php:42
+msgid "Restore"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:306
+#: src/Wp/Admin/templates/partials/backup-row.php:56
+#: src/Wp/Admin/templates/partials/backup-row.php:58
+msgid "Delete"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:308
+#: src/Wp/Admin/templates/partials/tabs.php:15
+msgid "A backup or restore is running"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:309
+msgid "No log is kept for completed backups yet."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:310
+#: src/Wp/Admin/templates/partials/status-card.php:36
+msgid "Start backup"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:311
+msgid "Backup started."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:314
+#: src/Wp/Admin/templates/backups.php:55
+msgid "Newer backups"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:315
+#: src/Wp/Admin/templates/backups.php:59
+msgid "Older backups"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:316
+#: src/Wp/Admin/templates/partials/status-card.php:25
+msgid "Backup options"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:317
+#: src/Wp/Admin/templates/partials/status-card.php:27
+msgid "What to back up"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:318
+#: src/Wp/Admin/templates/partials/status-card.php:28
+msgid "Database and files"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:319
+#: src/Wp/Admin/templates/partials/restore-dialog.php:25
+#: src/Wp/Admin/templates/partials/status-card.php:29
+msgid "Database only"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:320
+#: src/Wp/Admin/templates/partials/restore-dialog.php:26
+#: src/Wp/Admin/templates/partials/status-card.php:30
+msgid "Files only"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:321
+#: src/Wp/Admin/templates/partials/status-card.php:33
+msgid "Note (optional)"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:322
+#: src/Wp/Admin/templates/partials/status-card.php:34
+msgid "Note, e.g. before theme update"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:323
+msgid "Dismiss"
+msgstr ""
+
+#. translators: %s: domain of this site.
+#: src/Wp/Admin/I18nCatalog.php:325
+#, php-format
+msgid "The domain you typed does not match %s. Type it exactly to continue."
+msgstr ""
+
+#. translators: %s: why the upload stopped.
+#: src/Wp/Admin/I18nCatalog.php:327
+#, php-format
+msgid "Upload stopped: %s Choose the files again to resume where it stopped."
+msgstr ""
+
+#. translators: %s: file name.
+#: src/Wp/Admin/I18nCatalog.php:329
+#, php-format
+msgid "Uploading %s"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:330
+msgid "Upload progress"
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:331
+msgid "An upload is already running. Wait for it to finish."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:332
+msgid "No files were chosen. Choose the backup files to upload."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:333
+msgid "The connection to this site dropped. Check the connection, then reload the page."
+msgstr ""
+
+#: src/Wp/Admin/I18nCatalog.php:334
+msgid "Restore started. The site shows a maintenance page until it finishes."
+msgstr ""
+
+#. translators: 1: number of backups, 2: their total size, e.g. "1.2 GB".
+#: src/Wp/Admin/ListAssembler.php:82
+#, php-format
+msgid "%1$d backup · %2$s on this server"
+msgid_plural "%1$d backups · %2$s on this server"
+msgstr[0] ""
+msgstr[1] ""
+
+#: src/Wp/Admin/ListAssembler.php:135
+msgid "Unknown job."
+msgstr ""
+
+#: src/Wp/Admin/Notices.php:76
+msgid "Open dosya Backup"
+msgstr ""
+
+#. translators: 1: why the upload to dosya failed, 2: link to the plugin page.
+#: src/Wp/Admin/Notices.php:81
+#, php-format
+msgid "Your last backup is on this server but the upload to dosya failed: %1$s. %2$s"
+msgstr ""
+
+#. translators: 1: why the backup failed, 2: link to the plugin page.
+#: src/Wp/Admin/Notices.php:89
+#, php-format
+msgid "Your last backup failed: %1$s. %2$s"
+msgstr ""
+
+#. translators: %s: link to the dosya tab of the plugin page.
+#: src/Wp/Admin/Notices.php:109
+#, php-format
+msgid "dosya Backup lost its connection to dosya, so uploads are paused. Backups still run on this server. %s"
+msgstr ""
+
+#: src/Wp/Admin/templates/backups.php:25
+msgid "Log"
+msgstr ""
+
+#: src/Wp/Admin/templates/backups.php:31
+msgid "Created"
+msgstr ""
+
+#: src/Wp/Admin/templates/backups.php:32
+msgid "Type"
+msgstr ""
+
+#: src/Wp/Admin/templates/backups.php:33
+msgid "Contents"
+msgstr ""
+
+#: src/Wp/Admin/templates/backups.php:34
+msgid "Size"
+msgstr ""
+
+#: src/Wp/Admin/templates/backups.php:35
+msgid "Stored"
+msgstr ""
+
+#: src/Wp/Admin/templates/backups.php:36
+msgid "Actions"
+msgstr ""
+
+#: src/Wp/Admin/templates/dosya.php:13
+msgid "Connected to dosya."
+msgstr ""
+
+#: src/Wp/Admin/templates/partials/connect-card.php:41
+msgid "Your host has no encryption support for PHP (sodium), so the saved dosya key is stored unencrypted in the database."
+msgstr ""
+
+#: src/Wp/Admin/templates/partials/restore-dialog.php:23
+msgid "What to restore"
+msgstr ""
+
+#: src/Wp/Admin/templates/partials/restore-dialog.php:24
+msgid "Everything"
+msgstr ""
+
+#: src/Wp/Admin/templates/partials/tabs.php:10
+msgid "dosya Backup sections"
+msgstr ""
+
+#: src/Wp/Admin/templates/restore.php:13
+msgid "Restore or move a site here"
+msgstr ""
+
+#: src/Wp/Admin/templates/restore.php:14
+msgid "Upload a .dosya backup made on this site or on another one. For a backup that is already on this server, use Restore in the Backups list."
+msgstr ""
+
+#: src/Wp/Admin/templates/restore.php:15
+msgid "Restoring is free at any size."
+msgstr ""
+
+#: src/Wp/Admin/templates/restore.php:17
+msgid "Drop a .dosya file here, or choose a file"
+msgstr ""
+
+#: src/Wp/Admin/templates/restore.php:19
+msgid "Choose every file of the backup: manifest.json.gz and each vNNNN.dosya volume."
+msgstr ""
+
+#: src/Wp/Admin/templates/restore.php:21
+msgid "Uploads resume where they stopped if the connection drops."
+msgstr ""
+
+#: src/Wp/Admin/templates/restore.php:22
+msgid "An incremental backup needs the earlier backups it builds on, so a full backup is the safe choice for moving a site."
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:13
+msgid "Automatic backups"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:16
+msgid "Off"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:19
+msgid "Hourly (dosya plans)"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:22
+msgid "at"
+msgstr ""
+
+#. translators: %s: the site's time zone, e.g. Europe/Istanbul.
+#: src/Wp/Admin/templates/schedule.php:27
+#, php-format
+msgid "Times are in the site time zone, %s."
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:35
+msgid "Keep on this server"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:42
+msgid "Older ones are removed after each successful backup. Backups that newer ones depend on are kept."
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:47
+msgid "Keep in dosya"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:52
+msgid "Safety copy before restore"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:54
+msgid "Make a safety copy of the current site before every restore."
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:55
+msgid "Turning this off makes every restore ask you to type the domain."
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:59
+msgid "Email me"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:61
+msgid "when a backup fails"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:63
+msgid "when a backup succeeds"
+msgstr ""
+
+#. translators: %s: the site's admin email address.
+#: src/Wp/Admin/templates/schedule.php:67
+#, php-format
+msgid "Emails go to %s, the admin email address."
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:73
+msgid "Advanced"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:76
+msgid "Advanced: exclude folders and files"
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:77
+msgid "One pattern per line. Defaults already skip caches, logs and other backup plugins' folders."
+msgstr ""
+
+#: src/Wp/Admin/templates/schedule.php:89
+msgid "Save"
+msgstr ""
+
+#: src/Wp/Connector.php:91
+msgid "dosya answered with an unexpected response. Please try again."
+msgstr ""
+
+#: src/Wp/Connector.php:144
+msgid "Could not reach dosya to finish connecting. Please try again."
+msgstr ""
+
+#: src/Wp/Plugin.php:51
+msgid "dosya Backup needs 64-bit PHP. This server runs 32-bit PHP, so the plugin stays idle."
+msgstr ""
+
+#: src/Wp/Plugin.php:54
+msgid "dosya Backup needs a MySQL or MariaDB database. This site uses another database, so the plugin stays idle."
+msgstr ""
+
+#: src/Wp/Plugin.php:152
+msgid "dosya Backup needs a MySQL or MariaDB database connection."
+msgstr ""
+
+#: src/Wp/Plugin.php:302
+msgid "Another backup or restore is already running."
+msgstr ""

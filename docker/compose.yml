@@ -1,0 +1,21 @@
+name: dosya-wp-test
+x-dbenv: &dbenv
+  DOSYA_TEST_DB_HOST: db
+  DOSYA_TEST_DB_USER: root
+  DOSYA_TEST_DB_PASS: root
+  DOSYA_TEST_DB_NAME: dosya_test
+services:
+  php83:
+    build: { context: ., dockerfile: php.Dockerfile, args: { PHP_VERSION: "8.3" } }
+    volumes: ["..:/plugin"]
+    environment: *dbenv
+    depends_on: { db: { condition: service_healthy } }
+  php74:
+    build: { context: ., dockerfile: php.Dockerfile, args: { PHP_VERSION: "7.4" } }
+    volumes: ["..:/plugin"]
+    environment: *dbenv
+    depends_on: { db: { condition: service_healthy } }
+  db:
+    image: mariadb:10.6
+    environment: { MARIADB_ROOT_PASSWORD: root, MARIADB_DATABASE: dosya_test }
+    healthcheck: { test: ["CMD", "healthcheck.sh", "--connect"], interval: 2s, retries: 30 }

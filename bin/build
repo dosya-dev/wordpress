@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+cd "$(dirname "$0")/.."
+out=build/dosya-backup-restore-migration
+rm -rf build
+mkdir -p "$out"
+cp -R dosya-backup.php readme.txt src assets languages mu-plugin composer.json "$out/"
+[ -f composer.lock ] && cp composer.lock "$out/"
+rm -f "$out/src/Db/MysqliDb.php"
+docker compose -f docker/compose.yml run --rm -v "$PWD/$out:/out" php83 \
+  sh -c 'cd /out && composer install --no-dev --no-interaction --quiet --optimize-autoloader && rm -f composer.lock'
+( cd build && zip -qr dosya-backup.zip dosya-backup-restore-migration )
+echo "built build/dosya-backup.zip"

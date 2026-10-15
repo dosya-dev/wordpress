@@ -1,0 +1,16 @@
+{
+  "name": "dosya/wordpress-backup",
+  "description": "dosya Backup: back up, restore and migrate WordPress sites",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "require": {
+    "php": ">=7.4",
+    "woocommerce/action-scheduler": "^4.2"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.6"
+  },
+  "autoload": { "psr-4": { "Dosya\\Backup\\": "src/" } },
+  "autoload-dev": { "psr-4": { "Dosya\\Backup\\Tests\\": "tests/" } },
+  "config": { "platform": { "php": "7.4.33" }, "sort-packages": true }
+}

@@ -1,0 +1,57 @@
+name: dosya-wp-e2e
+# Both sites talk to the fake dosya service (tests/fake-dosya/server.php) by its compose name. The plugin calls
+# wp_remote_request (not wp_safe_remote_request), so WordPress does not refuse the internal host; no filter needed.
+x-extra: &extra "define('DISABLE_WP_CRON', true); define('DOSYA_BACKUP_API_BASE', 'http://fake-dosya:9000'); define('DOSYA_BACKUP_WEB_BASE', 'http://fake-dosya:9000');"
+x-a: &a
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_USER: root
+  WORDPRESS_DB_PASSWORD: root
+  WORDPRESS_DB_NAME: site_a
+  WORDPRESS_TABLE_PREFIX: wp_
+  WORDPRESS_CONFIG_EXTRA: *extra
+x-b: &b
+  WORDPRESS_DB_HOST: db
+  WORDPRESS_DB_USER: root
+  WORDPRESS_DB_PASSWORD: root
+  WORDPRESS_DB_NAME: site_b
+  WORDPRESS_TABLE_PREFIX: wpb_
+  WORDPRESS_CONFIG_EXTRA: *extra
+services:
+  db:
+    image: mariadb:10.6
+    environment: { MARIADB_ROOT_PASSWORD: root }
+    volumes: ["./e2e-initdb.sql:/docker-entrypoint-initdb.d/init.sql:ro"]
+    healthcheck: { test: ["CMD", "healthcheck.sh", "--connect"], interval: 2s, retries: 30 }
+  fake-dosya:
+    image: php:8.2-cli
+    command: ["php", "-S", "0.0.0.0:9000", "/fake/server.php"]
+    environment: { FAKE_DOSYA_DATA: /data }
+    # the shared-host ini (128M memory) applies here too: the fake streams bodies to /data and never holds them
+    volumes: ["../tests/fake-dosya:/fake:ro", "fake_data:/data", "./php-constrained.ini:/usr/local/etc/php/conf.d/zz-constrained.ini:ro"]
+    healthcheck: { test: ["CMD", "php", "-r", "exit(@file_get_contents('http://127.0.0.1:9000/fake/health') === false ? 1 : 0);"], interval: 2s, retries: 30 }
+  site-a:
+    image: wordpress:7.1-php8.2-apache
+    environment: *a
+    volumes: ["site_a:/var/www/html", "${PLUGIN_SRC:-..}:/var/www/html/wp-content/plugins/dosya-backup-restore-migration", "./php-constrained.ini:/usr/local/etc/php/conf.d/zz-constrained.ini:ro"]
+    depends_on: { db: { condition: service_healthy } }
+  site-b:
+    image: wordpress:7.1-php8.2-apache
+    environment: *b
+    volumes: ["site_b:/var/www/html", "${PLUGIN_SRC:-..}:/var/www/html/wp-content/plugins/dosya-backup-restore-migration", "./php-constrained.ini:/usr/local/etc/php/conf.d/zz-constrained.ini:ro"]
+    depends_on: { db: { condition: service_healthy } }
+  cli-a:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    environment: *a
+    volumes: ["site_a:/var/www/html", "${PLUGIN_SRC:-..}:/var/www/html/wp-content/plugins/dosya-backup-restore-migration", "./php-constrained.ini:/usr/local/etc/php/conf.d/zz-constrained.ini:ro"]
+    depends_on: [site-a]
+  cli-b:
+    image: wordpress:cli-php8.2
+    user: "33:33"
+    environment: *b
+    volumes: ["site_b:/var/www/html", "${PLUGIN_SRC:-..}:/var/www/html/wp-content/plugins/dosya-backup-restore-migration", "./php-constrained.ini:/usr/local/etc/php/conf.d/zz-constrained.ini:ro"]
+    depends_on: [site-b]
+volumes:
+  fake_data: {}
+  site_a: {}
+  site_b: {}

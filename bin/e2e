@@ -1,0 +1,141 @@
+#!/usr/bin/env bash
+# usage: bin/e2e [smoke|roundtrip|admin|plugin-check|remote]
+set -euo pipefail
+cd "$(dirname "$0")/.."
+mode="${1:-smoke}"
+# plugin-check scans what ships (bin/build: no tests/, dev files or vendor dev deps), not the source tree
+if [ "$mode" = "plugin-check" ] && [ -z "${PLUGIN_SRC:-}" ]; then
+  bin/build >/dev/null
+  PLUGIN_SRC=../build/dosya-backup-restore-migration
+fi
+export PLUGIN_SRC="${PLUGIN_SRC:-..}"
+dc=(docker compose -f docker/e2e.yml)
+docker compose -f docker/compose.yml run --rm php83 sh -c 'test -f vendor/autoload.php || composer install --no-interaction --quiet'
+"${dc[@]}" down -v --remove-orphans >/dev/null 2>&1 || true
+trap '"${dc[@]}" down -v --remove-orphans >/dev/null 2>&1 || true' EXIT
+"${dc[@]}" up -d --wait db fake-dosya site-a site-b
+sleep 3
+
+wpa() { "${dc[@]}" run --rm -T cli-a wp "$@"; }
+wpb() { "${dc[@]}" run --rm -T cli-b wp "$@"; }
+json() { python3 -c "import json,sys; d=json.load(sys.stdin); print($1)"; }
+fail() { echo "E2E FAIL: $*" >&2; exit 1; }
+
+install_site() {
+  local w=$1 url=$2
+  $w core install --url="$url" --title=E2E --admin_user=admin --admin_password=admin-pass-123 --admin_email=e2e@example.com --skip-email
+  $w plugin activate dosya-backup-restore-migration
+}
+install_site wpa http://site-a
+install_site wpb http://site-b
+
+smoke() {
+  wpa dosya backup --scope=full
+  local id
+  id=$(wpa dosya list --format=json | json 'd[0]["id"]')
+  [ -n "$id" ] || fail "no backup listed"
+  wpa dosya verify "$id" | grep -q "verified" || fail "verify did not succeed"
+  echo "E2E smoke OK ($id)"
+}
+
+admin() {
+  "${dc[@]}" cp tests/e2e/admin-ajax.sh site-a:/tmp/admin-ajax.sh
+  "${dc[@]}" exec -T site-a bash /tmp/admin-ajax.sh | tee /dev/stderr | grep -q 'ADMIN AJAX OK' || fail "admin ajax flow"
+  [ "$(wpb option get home)" = "http://site-b" ] || fail "site-b home changed"
+  [ "$(wpb config get DB_NAME)" = "site_b" ] || fail "site-b wp-config was overwritten"
+}
+
+# WP-CLI runs with max_execution_time=0 whatever the ini says, so the 30 s host limit is forced on the PHP command line.
+wpa_limited() { "${dc[@]}" run --rm -T cli-a php -d max_execution_time=30 /usr/local/bin/wp "$@"; }
+wpb_limited() { "${dc[@]}" run --rm -T cli-b php -d max_execution_time=30 /usr/local/bin/wp "$@"; }
+
+step_until_done() {
+  local w=$1 job=$2 state="" t0 t1
+  for _ in $(seq 1 600); do
+    t0=$(date +%s)
+    state=$($w dosya step "$job" | json 'd["state"]')
+    t1=$(date +%s)
+    [ $((t1 - t0)) -lt 30 ] || fail "step exceeded 30s (${state}, $((t1 - t0)) s)"
+    case "$state" in done) return 0 ;; failed|skipped|cancelled) $w dosya status "$job" >&2; return 1 ;; esac
+  done
+  echo "step_until_done: gave up after 600 steps, last state: $state" >&2
+  return 1
+}
+
+as_until_done() {
+  local w=$1 job=$2 state="" err=/tmp/dosya-as-err.$$
+  for _ in $(seq 1 600); do
+    $w action-scheduler run --hooks=dosya_backup_step --batch-size=1 >/dev/null 2>"$err" || true
+    state=$($w dosya status "$job" | json 'd["state"]')
+    case "$state" in done) rm -f "$err"; return 0 ;; failed|skipped|cancelled) $w dosya status "$job" >&2; return 1 ;; esac
+  done
+  echo "as_until_done: gave up after 600 runs, last state: $state; runner stderr:" >&2
+  cat "$err" >&2
+  return 1
+}
+
+tree_hash() { "${dc[@]}" exec -T "$1" sh -c 'cd /var/www/html/wp-content/uploads && find . -type f -print0 | sort -z | xargs -0 sha256sum'; }
+
+roundtrip() {
+  [ "$(wpa_limited eval 'echo ini_get("max_execution_time");')" = "30" ] || fail "30s limit not applied"
+  [ "$(wpb_limited eval 'echo ini_get("max_execution_time");')" = "30" ] || fail "30s limit not applied"
+  wpa post generate --count=150
+  wpa option add e2e_serialized '{"url":"http://site-a/page","n":1}' --format=json
+  "${dc[@]}" exec -T site-a sh -c 'mkdir -p /var/www/html/wp-content/uploads/2026/10 \
+    && dd if=/dev/urandom of=/var/www/html/wp-content/uploads/2026/10/big.bin bs=1M count=80 status=none \
+    && printf latin1 > "/var/www/html/wp-content/uploads/2026/10/$(printf "caf\351").txt" \
+    && chown -R www-data:www-data /var/www/html/wp-content/uploads'
+
+  local job id dirA dirB
+  job=$(wpa dosya backup --async)
+  step_until_done wpa_limited "$job" || fail "backup on constrained host"
+  id=$(wpa dosya status "$job" | json 'd["result"]["backup_id"]')
+  wpa dosya verify "$id" >/dev/null || fail "verify"
+  [ "$(wpa dosya list --format=json | json 'd[0]["volumes"]')" -ge 2 ] || fail "expected at least two volumes"
+
+  dirA=$(wpa dosya list --format=json | json 'd[0]["dir"]')
+  dirB=$(wpb eval '\Dosya\Backup\Wp\Plugin::store()->ensure(); echo \Dosya\Backup\Wp\Plugin::store()->dir();')
+  rm -rf /tmp/dosya-e2e && mkdir -p /tmp/dosya-e2e
+  "${dc[@]}" cp "site-a:$dirA" "/tmp/dosya-e2e/$id"
+  "${dc[@]}" cp "/tmp/dosya-e2e/$id" "site-b:$dirB/$id"
+  "${dc[@]}" exec -T site-b chown -R www-data:www-data "$dirB/$id"
+
+  local rjob
+  rjob=$(wpb dosya restore "$id" --async --yes)
+  as_until_done wpb_limited "$rjob" || fail "restore via action scheduler"
+
+  [ "$(wpa post list --post_type=post --format=count)" = "$(wpb post list --post_type=post --format=count)" ] || fail "post count differs"
+  wpb option get e2e_serialized --format=json | grep -q 'http:\\/\\/site-b\\/page' || fail "serialized url not rewritten"
+  [ "$(wpb option get home)" = "http://site-b" ] || fail "home not rewritten"
+  [ "$(wpb config get DB_NAME)" = "site_b" ] || fail "wp-config overwritten"
+  [ "$(wpb config get table_prefix)" = "wpb_" ] || fail "table prefix changed"
+  [ "$(tree_hash site-a)" = "$(tree_hash site-b)" ] || fail "uploads differ (includes the non-UTF-8 file name)"
+  [ "$("${dc[@]}" exec -T site-a curl -s -o /dev/null -w '%{http_code}' http://site-b/)" = "200" ] || fail "site-b does not load"
+  [ "$(wpb eval 'echo file_exists(WPMU_PLUGIN_DIR . "/dosya-restore-guard.php") ? "yes" : "no";')" = "no" ] || fail "guard left behind"
+  [ "$(wpb dosya list --format=json | json 'len([b for b in d if b["label"] == "pre-restore"])')" = "1" ] || fail "no safety snapshot"
+  echo "E2E roundtrip OK ($id)"
+}
+
+plugin_check() {
+  wpa plugin install plugin-check --activate
+  local out rc=0
+  # Plugin Check prints nothing and exits 0 when there are no errors (it has no "No errors found" text).
+  # "Tested up to" is the one time-dependent check: the containers run WordPress 7.1 today and will fall behind, so it is ignored here.
+  out=$(wpa plugin check dosya-backup-restore-migration --ignore-warnings --ignore-codes=outdated_tested_upto_header 2>&1) || rc=$?
+  echo "$out"
+  [ "$rc" -eq 0 ] || fail "Plugin Check exited $rc"
+  grep -q 'ERROR' <<<"$out" && fail "Plugin Check reported errors"
+  echo "E2E plugin-check OK"
+}
+
+# remote: the real plugin on site-a against the fake dosya service (tests/fake-dosya/server.php)
+. tests/e2e/remote.sh
+
+case "$mode" in
+  smoke) smoke ;;
+  admin) admin ;;
+  roundtrip) roundtrip ;;
+  plugin-check) plugin_check ;;
+  remote) remote ;;
+  *) fail "unknown mode $mode" ;;
+esac
