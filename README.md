@@ -133,9 +133,15 @@ describes it in the words WordPress.org requires.
    `wp i18n make-pot . languages/dosya-backup-restore-migration.pot --slug=dosya-backup-restore-migration --domain=dosya-backup-restore-migration`
    (from inside the e2e CLI container, excluding `tests`, `vendor`, `build`,
    `docker` and `bin`).
-3. Run the unit suites on both PHP versions and all five e2e gates.
-4. `bin/build`, then commit `build/dosya-backup.zip` to the WordPress.org SVN
-   `trunk/` and `tags/<version>/`.
+3. Merge, then sync this repository. Every push to `main` runs
+   `.github/workflows/wordpress-org.yml`: PHPUnit on PHP 8.3 and 7.4 and all
+   five e2e lanes, then `bin/wporg-deploy`, which commits the `bin/build`
+   output to the WordPress.org SVN `trunk/` and `tags/<version>/`.
+
+A push that keeps the version only updates `readme.txt` and the directory
+images in `wporg-assets/` (banners, icons, screenshots), so editing
+`Tested up to` or a screenshot never ships code. `DRY_RUN=1 bin/wporg-deploy`
+shows what a push would change without committing.
 
 ## Transparency
 
@@ -173,6 +179,7 @@ security@dosya.dev rather than a public issue.
 | Repository | What it is | License |
 |---|---|---|
 | [wordpress](https://github.com/dosya-dev/wordpress) | WordPress plugin - backup, restore, migrate | GPL-2.0-or-later |
+| [help.dosya.dev](https://github.com/dosya-dev/help.dosya.dev) | Help center - guides and site | Source-available |
 | [browser-extensions](https://github.com/dosya-dev/browser-extensions) | Browser extension - Save to dosya for Chrome, Edge, Firefox | Source-available |
 | [desktop](https://github.com/dosya-dev/desktop) | Desktop client - sync, upload, manage | Source-available |
 | [cli](https://github.com/dosya-dev/cli) | Command-line interface | Source-available |

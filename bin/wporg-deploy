@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+# usage: bin/wporg-deploy
+# Publishes the plugin to the WordPress.org directory over SVN. The mirror's
+# .github/workflows/wordpress-org.yml runs it after every gate is green; it
+# needs SVN_USERNAME and SVN_PASSWORD (the SVN password from the wordpress.org
+# profile, not the account password). DRY_RUN=1 does everything but commit.
+#
+# A version with no tags/<version> yet is a release: trunk becomes the built
+# plugin and tags/<version> a copy of it. A version that is already tagged
+# only refreshes readme.txt (in trunk and in that tag) and the directory
+# images, so a sync without a version bump never puts new code in front of
+# the sites that auto-update.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+slug=dosya-backup-restore-migration
+url="https://plugins.svn.wordpress.org/$slug"
+fail() { echo "wporg-deploy: $*" >&2; exit 1; }
+
+version=$(sed -n 's/^ \* Version: *//p' dosya-backup.php)
+constant=$(sed -n "s/^define('DOSYA_BACKUP_VERSION', '\(.*\)');/\1/p" dosya-backup.php)
+stable=$(sed -n 's/^Stable tag: *//p' readme.txt)
+[ -n "$version" ] || fail "no Version header in dosya-backup.php"
+[ "$version" = "$constant" ] || fail "Version header is $version but DOSYA_BACKUP_VERSION is $constant"
+[ "$version" = "$stable" ] || fail "Version header is $version but readme.txt Stable tag is $stable"
+grep -q "^= $version =" readme.txt || fail "readme.txt has no changelog entry '= $version ='"
+
+bin/build >/dev/null
+built="build/$slug"
+
+work=$(mktemp -d)
+trap 'rm -rf "$work"' EXIT
+# Never check out every tag: only trunk, assets and the tag this run touches.
+svn checkout -q --depth immediates "$url" "$work"
+svn update -q --set-depth infinity "$work/trunk" "$work/assets"
+
+# Mirror a directory into the working copy and schedule the adds and deletes.
+sync_dir() {
+  local from=$1 to=$2
+  rsync -rc --delete --exclude=.svn "$from/" "$to/"
+  svn status "$to" | sed -n 's/^? *//p' | while IFS= read -r p; do svn add -q --parents "$p"; done
+  svn status "$to" | sed -n 's/^! *//p' | while IFS= read -r p; do svn rm -q "$p"; done
+}
+
+if svn ls "$url/tags/$version" >/dev/null 2>&1; then
+  mode=update
+  echo "wporg-deploy: $version is already released; refreshing readme.txt and images only"
+  if ! diff -rq --exclude=.svn --exclude=readme.txt "$built" "$work/trunk" >/dev/null; then
+    echo "::warning::The plugin code differs from WordPress.org $version but the version was not bumped, so it was not released. Bump Version, DOSYA_BACKUP_VERSION, Stable tag and the changelog to release it."
+  fi
+  svn update -q --set-depth infinity "$work/tags/$version"
+  cp readme.txt "$work/trunk/readme.txt"
+  cp readme.txt "$work/tags/$version/readme.txt"
+else
+  mode=release
+  echo "wporg-deploy: releasing $version"
+  sync_dir "$built" "$work/trunk"
+  svn cp -q "$work/trunk" "$work/tags/$version"
+fi
+
+sync_dir wporg-assets "$work/assets"
+svn status "$work/assets" | sed -n 's/^A *//p' | while IFS= read -r p; do
+  case "$p" in
+    *.png) svn propset -q svn:mime-type image/png "$p" ;;
+    *.jpg|*.jpeg) svn propset -q svn:mime-type image/jpeg "$p" ;;
+    *.gif) svn propset -q svn:mime-type image/gif "$p" ;;
+    *.svg) svn propset -q svn:mime-type image/svg+xml "$p" ;;
+  esac
+done
+
+changes=$(svn status "$work")
+if [ -z "$changes" ]; then
+  echo "wporg-deploy: WordPress.org already matches, nothing to commit"
+  exit 0
+fi
+echo "$changes" | sed "s|$work/||" | head -200
+if [ "${DRY_RUN:-}" = 1 ]; then
+  echo "wporg-deploy: DRY_RUN=1, not committing ($mode)"
+  exit 0
+fi
+[ -n "${SVN_USERNAME:-}" ] && [ -n "${SVN_PASSWORD:-}" ] || fail "SVN_USERNAME and SVN_PASSWORD must be set"
+
+source="${GITHUB_REPOSITORY:-local}@${GITHUB_SHA:-$(git rev-parse --short HEAD 2>/dev/null || echo unknown)}"
+if [ "$mode" = release ]; then msg="Release $version from $source"; else msg="Update readme and images from $source"; fi
+printf %s "$SVN_PASSWORD" | svn commit -q -m "$msg" --username "$SVN_USERNAME" --password-from-stdin \
+  --no-auth-cache --non-interactive "$work"
+echo "wporg-deploy: committed ($mode $version)"

@@ -1,0 +1,60 @@
+# Publishes the plugin to WordPress.org on every push to main, which is every
+# sync from the dosya monorepo. bin/wporg-deploy decides what a push means: a
+# version with no tag on WordPress.org yet is released, anything else only
+# refreshes readme.txt and the directory images in wporg-assets/.
+#
+# Nothing is published unless the PHPUnit suites (PHP 8.3 and 7.4) and all
+# five e2e lanes pass first, because sites with auto-updates on install a
+# release within hours.
+#
+# One-time setup in this repository, Settings > Secrets and variables >
+# Actions: SVN_USERNAME (dosyadev) and SVN_PASSWORD (the SVN password from the
+# wordpress.org profile, not the account password).
+name: WordPress.org
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# One publish at a time, and never cancel one half way through a commit.
+concurrency:
+  group: wordpress-org
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  phpunit:
+    if: github.repository == 'dosya-dev/wordpress'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        php: ['83', '74']
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - run: bin/test all ${{ matrix.php }}
+
+  e2e:
+    if: github.repository == 'dosya-dev/wordpress'
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        lane: [smoke, roundtrip, admin, remote, plugin-check]
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - run: bin/e2e ${{ matrix.lane }}
+
+  publish:
+    needs: [phpunit, e2e]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+      - run: sudo apt-get update -q && sudo apt-get install -y -q subversion
+      - run: bin/wporg-deploy
+        env:
+          SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
+          SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
